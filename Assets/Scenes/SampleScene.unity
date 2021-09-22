@@ -890,7 +890,7 @@ GameObject:
   - component: {fileID: 1581721191}
   m_Layer: 0
   m_Name: StageManager
-  m_TagString: Untagged
+  m_TagString: StageManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -907,6 +907,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c8934e21a34644eb551c042df02fc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageNum: 0
+  currentTask: 
+  chaos: 0
 --- !u!4 &1581721192
 Transform:
   m_ObjectHideFlags: 0
@@ -975,6 +978,22 @@ PrefabInstance:
     - target: {fileID: 6341185423884308725, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
       propertyPath: m_Name
       value: PlayerObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341185423953187285, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
+      propertyPath: m_ClearFlags
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341185423953187285, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341185423953187285, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
+      propertyPath: m_RenderingPath
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341185423953187285, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
