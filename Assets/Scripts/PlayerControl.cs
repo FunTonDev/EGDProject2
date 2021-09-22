@@ -19,10 +19,12 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        head.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+        head.transform.position = new Vector3(transform.position.x, 2, transform.position.z);
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
+        playerDirection = new Vector3(horizontal, 0, vertical);
+        playerDirection = Camera.main.transform.TransformDirection(playerDirection);
 
-        transform.Translate(new Vector3(horizontal, 0, vertical) * (playerSpeed * Time.deltaTime));
+        transform.Translate(new Vector3(playerDirection.x, 0, playerDirection.z) * (playerSpeed * Time.deltaTime));
     }
 }
