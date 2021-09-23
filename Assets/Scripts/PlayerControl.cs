@@ -26,12 +26,13 @@ public class PlayerControl : MonoBehaviour
     {
         player = GetComponent<PlayerControl>();
         stagie = GameObject.FindGameObjectWithTag("StageManager");
+        serenity_filter.enabled = true;
+        chaos_filter.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        serenity_filter.enabled = true;
         head.transform.position = new Vector3(transform.position.x, 2, transform.position.z);
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -46,11 +47,13 @@ public class PlayerControl : MonoBehaviour
             stagie.GetComponent<StageManager>().chaos = !stagie.GetComponent<StageManager>().chaos;
             if (stagie.GetComponent<StageManager>().chaos)
             {
+                Debug.Log("here1");
                 chaos_filter.enabled = true;
                 serenity_filter.enabled = false;
             }
             else
             {
+                Debug.Log("here2");
                 serenity_filter.enabled = true;
                 chaos_filter.enabled = false;
             }
