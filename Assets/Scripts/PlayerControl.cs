@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class PlayerControl : MonoBehaviour
     public float playerSpeed;
     //The direction the player is facing in
     public Vector3 playerDirection = Vector3.zero;
+    //Filters for UI during the different modes
+    public RawImage chaos_filter;
+    public RawImage serenity_filter;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +31,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        serenity_filter.enabled = true;
         head.transform.position = new Vector3(transform.position.x, 2, transform.position.z);
         float horizontal = Input.GetAxis("Horizontal");
         float vertical = Input.GetAxis("Vertical");
@@ -41,11 +46,13 @@ public class PlayerControl : MonoBehaviour
             stagie.GetComponent<StageManager>().chaos = !stagie.GetComponent<StageManager>().chaos;
             if (stagie.GetComponent<StageManager>().chaos)
             {
-                
+                chaos_filter.enabled = true;
+                serenity_filter.enabled = false;
             }
             else
             {
-
+                serenity_filter.enabled = true;
+                chaos_filter.enabled = false;
             }
         }
     }
