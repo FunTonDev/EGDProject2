@@ -58,5 +58,10 @@ public class PlayerControl : MonoBehaviour
                 chaos_filter.enabled = false;
             }
         }
+
+        if (Input.GetButtonDown("Fire1") && stagie.GetComponent<StageManager>().chaos)
+        {
+            //Perform current chaos ability
+        }
     }
 }
