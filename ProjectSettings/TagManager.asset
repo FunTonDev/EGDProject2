@@ -6,6 +6,7 @@ TagManager:
   tags:
   - StageManager
   - PlayerObj
+  - Interactable
   layers:
   - Default
   - TransparentFX

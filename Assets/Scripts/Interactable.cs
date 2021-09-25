@@ -31,7 +31,7 @@ public class Interactable : MonoBehaviour
 
     public void onInteract()
     {
-
+        canDo = true;
     }
 
 }
