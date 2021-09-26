@@ -112,10 +112,19 @@ public class PlayerControl : MonoBehaviour
         //Interact with item
         if (Input.GetButtonDown("Fire1") && inter != null)
         {
-            if (inter.GetComponent<Interactable>().itemName != "Door")
+
+            stagie.GetComponent<StageManager>().StartCoroutine(stagie.GetComponent<StageManager>().GlowButton(inter));
+            if (inter.GetComponent<Interactable>().itemName == "Keys")
             {
-                stagie.GetComponent<StageManager>().StartCoroutine(stagie.GetComponent<StageManager>().GlowButton(inter));
-                
+                //Pick up keys and move to the door and/or get more stuff
+            }
+            else if (inter.GetComponent<Interactable>().itemName == "Bag")
+            {
+                //Pick up bag from drive thru and move on
+            }
+            else if (inter.GetComponent<Interactable>().itemName == "Door")
+            {
+                //Move outside/ to drivethru scene
             }
         }
         //Perform current chaos ability (check stage manager for index/text
