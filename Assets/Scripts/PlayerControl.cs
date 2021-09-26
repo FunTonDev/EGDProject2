@@ -23,6 +23,11 @@ public class PlayerControl : MonoBehaviour
     //Interactable object
     public GameObject inter;
 
+    public Rigidbody carBody;
+
+    public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 10f;
+    public float speedInput, turnInput;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Interactable")
@@ -54,14 +59,38 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        head.transform.position = new Vector3(transform.position.x, 2, transform.position.z);
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        playerDirection = new Vector3(horizontal, 0, vertical);
-        playerDirection = Camera.main.transform.TransformDirection(playerDirection);
+        head.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
 
-        transform.Translate(new Vector3(playerDirection.x, 0, playerDirection.z) * (playerSpeed * Time.deltaTime));
+        if (!carMode)
+        {
+            head.GetComponent<FirstPersonCamera>().notAble = false;
+            float horizontal = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
+            playerDirection = new Vector3(horizontal, 0, vertical);
+            if (!carMode)
+                playerDirection = Camera.main.transform.TransformDirection(playerDirection);
 
+            transform.Translate(new Vector3(playerDirection.x, 0, playerDirection.z) * (playerSpeed * Time.deltaTime));
+        }
+        else
+        {
+            head.GetComponent<FirstPersonCamera>().notAble = true;
+            speedInput = 0f;
+            if (Input.GetAxis("Vertical") > 0)
+            {
+                speedInput = Input.GetAxis("Vertical") * fowardAccel * 10f;
+            }
+            else if (Input.GetAxis("Vertical") < 0)
+            {
+                speedInput = Input.GetAxis("Vertical") * reverseAccel * 10f;
+            }
+
+            turnInput = Input.GetAxis("Horizontal");
+
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles + new Vector3(0f, turnInput * turnStrength * Time.deltaTime * Input.GetAxis("Vertical"), 0f));
+            head.transform.rotation = transform.rotation;
+            transform.position = carBody.transform.position;
+        }
         //If player presses the chaos button
         if (Input.GetButtonDown("Jump"))
         {
@@ -92,7 +121,30 @@ public class PlayerControl : MonoBehaviour
         //Perform current chaos ability (check stage manager for index/text
         else if (Input.GetButtonDown("Fire1") && stagie.GetComponent<StageManager>().chaos)
         {
+            //If in car, jump
+            if (carMode && carBody.velocity.y == 0)
+            {
+                Debug.Log("Do the jump");
+                carBody.AddForce(transform.up * 500);
+            }
             
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (carBody.velocity.y == 0)
+        {
+            carBody.drag = 5;
+            if (Mathf.Abs(speedInput) > 0 && carMode)
+            {
+                carBody.AddForce(transform.forward * speedInput);
+            }
+        }
+        else
+        {
+            carBody.drag = 0.1f;
+            carBody.AddForce(transform.up * -gravityForce);
         }
     }
 }

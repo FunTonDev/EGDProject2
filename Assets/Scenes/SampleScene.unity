@@ -1018,12 +1018,12 @@ Rigidbody:
   m_GameObject: {fileID: 814022301}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_Drag: 1
+  m_AngularDrag: 0.5
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 1
 --- !u!1 &842205781
 GameObject:
@@ -1536,6 +1536,14 @@ PrefabInstance:
     - target: {fileID: 6341185423555662197, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
       propertyPath: m_TagString
       value: PlayerObj
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341185423555662206, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
+      propertyPath: carBody
+      value: 
+      objectReference: {fileID: 814022307}
+    - target: {fileID: 6341185423555662206, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
+      propertyPath: carMode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6341185423555662206, guid: 74fd72978a75c904aa61806fd38ca06e, type: 3}
       propertyPath: chaos_filter
