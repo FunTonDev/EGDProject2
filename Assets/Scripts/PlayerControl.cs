@@ -116,25 +116,45 @@ public class PlayerControl : MonoBehaviour
             stagie.GetComponent<StageManager>().StartCoroutine(stagie.GetComponent<StageManager>().GlowButton(inter));
             if (inter.GetComponent<Interactable>().itemName == "Keys")
             {
+                stagie.GetComponent<StageManager>().gotKeys = true;
+                stagie.GetComponent<StageManager>().taskNum += 1;
+                Destroy(inter);
                 //Pick up keys and move to the door and/or get more stuff
             }
             else if (inter.GetComponent<Interactable>().itemName == "Bag")
             {
+                stagie.GetComponent<StageManager>().gotLunch = true;
+                stagie.GetComponent<StageManager>().taskNum += 1;
+                Destroy(inter);
                 //Pick up bag from drive thru and move on
             }
             else if (inter.GetComponent<Interactable>().itemName == "Door")
             {
-                //Move outside/ to drivethru scene
+                if (stagie.GetComponent<StageManager>().gotKeys)
+                {
+
+                    //Move to next scene
+                }
             }
         }
         //Perform current chaos ability (check stage manager for index/text
         else if (Input.GetButtonDown("Fire1") && stagie.GetComponent<StageManager>().chaos)
         {
             //If in car, jump
-            if (carMode && carBody.velocity.y == 0)
+            if (carMode && carBody.velocity.y == 0 && stagie.GetComponent<StageManager>().stageNum == 2)
             {
                 Debug.Log("Do the jump");
                 carBody.AddForce(transform.up * 500);
+            }
+            //In house, do ability (Bat)
+            else if (stagie.GetComponent<StageManager>().stageNum == 0)
+            {
+
+            }
+            //At drive thru, do ability (Push Cars)
+            else if (stagie.GetComponent<StageManager>().stageNum == 1)
+            {
+
             }
             
         }

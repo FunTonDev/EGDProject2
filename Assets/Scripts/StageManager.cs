@@ -28,9 +28,9 @@ public class StageManager : MonoBehaviour
     public GameObject interacting;
     //Whether the game is in chaos mode or not
     public bool chaos = false;
-
+    //Player got keys
     public bool gotKeys;
-
+    //Player got lunch
     public bool gotLunch;
 
     public IEnumerator GlowButton(GameObject item)
@@ -54,7 +54,6 @@ public class StageManager : MonoBehaviour
         tasks.Add("Head to work");
         tasks.Add("Make your way through traffic");
 
-        actions.Add("Flip");
         actions.Add("Bat");
         actions.Add("Push");
         actions.Add("Jump");
@@ -63,16 +62,19 @@ public class StageManager : MonoBehaviour
         {
             stageNum = 0;
             taskNum = 0;
+            actionNum = 0;
         }
         else if (SceneManager.GetActiveScene().name == "DriveThru")
         {
             stageNum = 1;
             taskNum = 4;
+            actionNum = 1;
         }
         else if (SceneManager.GetActiveScene().name == "Street")
         {
             stageNum = 2;
             taskNum = 6;
+            actionNum = 2;
         }
     }
 
@@ -80,6 +82,11 @@ public class StageManager : MonoBehaviour
     void Update()
     {
         taskText.text = tasks[taskNum];
+        //If any input is detected, move out of bed (rotation of player will be sideways, so set to normal after
+        if (taskNum == 0 && (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0))
+        {
+            taskNum += 1;
+        }
         if (chaos)
         {
             chaosText.text = actions[actionNum] + " with E";
