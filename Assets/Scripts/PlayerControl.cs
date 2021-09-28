@@ -22,6 +22,11 @@ public class PlayerControl : MonoBehaviour
     public RawImage serenity_filter;
     //Interactable object
     public GameObject inter;
+    //Rigidbodies of character head/body
+    private Rigidbody headrb;
+    public Rigidbody bodyrb;
+    //Refrence to head object
+    public GameObject headobj;
 
     public Rigidbody carBody;
 
@@ -54,6 +59,7 @@ public class PlayerControl : MonoBehaviour
         stagie = GameObject.FindGameObjectWithTag("StageManager");
         serenity_filter.enabled = true;
         chaos_filter.enabled = false;
+        headrb = headobj.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -97,15 +103,15 @@ public class PlayerControl : MonoBehaviour
             stagie.GetComponent<StageManager>().chaos = !stagie.GetComponent<StageManager>().chaos;
             if (stagie.GetComponent<StageManager>().chaos)
             {
-                Debug.Log("here1");
                 chaos_filter.enabled = true;
                 serenity_filter.enabled = false;
             }
             else
             {
-                Debug.Log("here2");
                 serenity_filter.enabled = true;
                 chaos_filter.enabled = false;
+                headrb.mass = 1f;
+                bodyrb.mass = 1f;
             }
         }
 
@@ -151,12 +157,15 @@ public class PlayerControl : MonoBehaviour
             {
 
             }
-            //At drive thru, do ability (Push Cars)
-            else if (stagie.GetComponent<StageManager>().stageNum == 1)
-            {
-
-            }
             
+        }
+        //At drive thru, do ability (Push Cars)
+        //add ui element that tells the player they can push the car
+        if (stagie.GetComponent<StageManager>().stageNum == 1 && stagie.GetComponent<StageManager>().chaos && headrb.mass==1f)
+        {
+            Debug.Log("here");
+            headrb.mass = 150f;
+            bodyrb.mass = 150f;
         }
     }
 
