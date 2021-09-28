@@ -29,6 +29,10 @@ public class StageManager : MonoBehaviour
     //Whether the game is in chaos mode or not
     public bool chaos = false;
 
+    public bool gotKeys;
+
+    public bool gotLunch;
+
     public IEnumerator GlowButton(GameObject item)
     {
         interacting.GetComponent<Image>().color = new Color(0.0f, 1.0f, 0.0f);
