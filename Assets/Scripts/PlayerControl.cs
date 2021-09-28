@@ -27,6 +27,7 @@ public class PlayerControl : MonoBehaviour
     public Rigidbody bodyrb;
     //Refrence to head object
     public GameObject headobj;
+    //Refrence to camera
 
     public Rigidbody carBody;
 
@@ -50,6 +51,12 @@ public class PlayerControl : MonoBehaviour
             inter = null;
             stagie.GetComponent<StageManager>().interacting.SetActive(false);
         }
+    }
+
+    IEnumerator FlipCoroutine()
+    {
+        player.transform.Rotate(30, 0, 0, Space.Self);
+        yield return new WaitForSeconds(.05f);
     }
 
     // Start is called before the first frame update
@@ -157,19 +164,29 @@ public class PlayerControl : MonoBehaviour
             {
 
             }
-            
+
         }
         //At drive thru, do ability (Push Cars)
         //add ui element that tells the player they can push the car
-        if (stagie.GetComponent<StageManager>().stageNum == 1 && stagie.GetComponent<StageManager>().chaos && headrb.mass==1f)
+        if (stagie.GetComponent<StageManager>().stageNum == 1 && stagie.GetComponent<StageManager>().chaos && headrb.mass == 1f)
         {
             Debug.Log("here");
             headrb.mass = 150f;
             bodyrb.mass = 150f;
         }
+        //do a flip
+        if (Input.GetKeyDown(KeyCode.F) && stagie.GetComponent<StageManager>().chaos)
+        {
+            player.transform.Translate(0, 5, 0);
+            for (int i = 0; i < 12; i++)
+            {
+                StartCoroutine(FlipCoroutine());
+                Debug.Log("Here");
+            }
+        }
     }
 
-    private void FixedUpdate()
+        private void FixedUpdate()
     {
         if (carBody.velocity.y == 0)
         {
