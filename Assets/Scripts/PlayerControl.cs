@@ -231,8 +231,8 @@ public class PlayerControl : MonoBehaviour
         //add ui element that tells the player they can push the car
         if (stagie.GetComponent<StageManager>().stageNum == 1 && stagie.GetComponent<StageManager>().chaos && headrb.mass == 1f)
         {
-            headrb.mass = 150f;
-            bodyrb.mass = 150f;
+            headrb.mass = 1300f;
+            bodyrb.mass = 1300f;
         }
         //do a flip
         if (Input.GetKeyDown(KeyCode.F) && stagie.GetComponent<StageManager>().chaos)
