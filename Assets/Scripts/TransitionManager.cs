@@ -68,7 +68,7 @@ public class TransitionManager : MonoBehaviour
         }
         else if (toSwitch == 3)
         {
-            backStory.text = "GAME COMPLETED";
+            backStory.text = "You made it to work on Time!\n\nGAME COMPLETED";
         }
     }
 }
