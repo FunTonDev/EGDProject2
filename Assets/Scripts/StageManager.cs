@@ -49,6 +49,7 @@ public class StageManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tasks = new List<string>();
         tasks.Add("Get out of Bed");
         tasks.Add("Find your keys");
         tasks.Add("Get to the car");
@@ -57,6 +58,7 @@ public class StageManager : MonoBehaviour
         tasks.Add("Head to work");
         tasks.Add("Make your way through traffic");
 
+        actions = new List<string>();
         actions.Add("Flip");
         actions.Add("Bat");
         actions.Add("Push");

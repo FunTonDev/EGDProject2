@@ -72,7 +72,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        head.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+        head.transform.position = new Vector3(transform.position.x, transform.position.y + 1.68f * 20, transform.position.z);
 
         //If not in the car, use normal movement
         if (!carMode)
@@ -80,7 +80,7 @@ public class PlayerControl : MonoBehaviour
             head.GetComponent<FirstPersonCamera>().notAble = false;
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-            playerDirection = new Vector3(horizontal, 0, vertical);
+            playerDirection = new Vector3(horizontal, 0, vertical) * 20;
             if (!carMode)
                 playerDirection = Camera.main.transform.TransformDirection(playerDirection);
 
@@ -93,11 +93,11 @@ public class PlayerControl : MonoBehaviour
             speedInput = 0f;
             if (Input.GetAxis("Vertical") > 0)
             {
-                speedInput = Input.GetAxis("Vertical") * fowardAccel * 10f;
+                speedInput = Input.GetAxis("Vertical") * fowardAccel * 10f * 20;
             }
             else if (Input.GetAxis("Vertical") < 0)
             {
-                speedInput = Input.GetAxis("Vertical") * reverseAccel * 10f;
+                speedInput = Input.GetAxis("Vertical") * reverseAccel * 10f * 20;
             }
 
             turnInput = Input.GetAxis("Horizontal");
