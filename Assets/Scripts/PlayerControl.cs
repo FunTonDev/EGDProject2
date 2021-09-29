@@ -219,7 +219,7 @@ public class PlayerControl : MonoBehaviour
             if (carMode && carBody.velocity.y == 0 && stagie.GetComponent<StageManager>().stageNum == 2)
             {
                 Debug.Log("Do the jump");
-                carBody.AddForce(transform.up * 1000, ForceMode.Impulse);
+                carBody.AddForce(transform.up * 2200, ForceMode.Impulse);
             }
             //In house, do ability (Bat)
             else if (stagie.GetComponent<StageManager>().stageNum == 0)
@@ -231,8 +231,8 @@ public class PlayerControl : MonoBehaviour
         //add ui element that tells the player they can push the car
         if (stagie.GetComponent<StageManager>().stageNum == 1 && stagie.GetComponent<StageManager>().chaos && headrb.mass == 1f)
         {
-            headrb.mass = 1300f;
-            bodyrb.mass = 1300f;
+            headrb.mass = 1600f;
+            bodyrb.mass = 1600f;
         }
         //do a flip
         if (Input.GetKeyDown(KeyCode.F) && stagie.GetComponent<StageManager>().chaos)
