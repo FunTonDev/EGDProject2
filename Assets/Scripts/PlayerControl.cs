@@ -40,6 +40,7 @@ public class PlayerControl : MonoBehaviour
     public AudioSource my_audio;
     public AudioClip calm_music;
     public AudioClip chaos_music;
+    public AudioSource highway_audio;
 
     //Car movement variables
     public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 500f;
@@ -91,7 +92,9 @@ public class PlayerControl : MonoBehaviour
         headrb = headobj.GetComponent<Rigidbody>();
         parentBod = gameObject.transform.parent.gameObject;
         if (stagie.GetComponent<StageManager>().stageNum == 0)
+        {
             anim = bat.GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
@@ -147,6 +150,10 @@ public class PlayerControl : MonoBehaviour
                 {
                     bat.SetActive(true);
                 }
+                else if (stagie.GetComponent<StageManager>().stageNum == 2)
+                {
+                    highway_audio.Play();
+                }
                 my_audio.clip = chaos_music;
                 my_audio.Play();
             }
@@ -159,6 +166,10 @@ public class PlayerControl : MonoBehaviour
                 if (stagie.GetComponent<StageManager>().stageNum == 0)
                 {
                     bat.SetActive(false);
+                }
+                else if (stagie.GetComponent<StageManager>().stageNum == 2)
+                {
+                    highway_audio.Stop();
                 }
                 my_audio.clip = calm_music;
                 my_audio.Play();
