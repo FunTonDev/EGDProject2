@@ -38,7 +38,7 @@ public class PlayerControl : MonoBehaviour
     private Animator anim;
 
     //Car movement variables
-    public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 100f;
+    public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 500f;
     public float speedInput, turnInput;
 
     private void OnTriggerEnter(Collider other)
@@ -86,7 +86,8 @@ public class PlayerControl : MonoBehaviour
         chaos_filter.enabled = false;
         headrb = headobj.GetComponent<Rigidbody>();
         parentBod = gameObject.transform.parent.gameObject;
-        anim = bat.GetComponent<Animator>();
+        if (stagie.GetComponent<StageManager>().stageNum == 0)
+            anim = bat.GetComponent<Animator>();
     }
 
     // Update is called once per frame

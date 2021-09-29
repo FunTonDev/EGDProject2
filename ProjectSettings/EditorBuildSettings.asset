@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DriveThru.unity
     guid: 848539be267a88f4f88e3821f6168c37
+  - enabled: 1
+    path: Assets/Scenes/Street.unity
+    guid: e6660ee1461feef4385d131595e28685
   m_configObjects: {}
