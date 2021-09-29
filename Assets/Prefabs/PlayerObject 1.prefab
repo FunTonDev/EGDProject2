@@ -157,7 +157,6 @@ GameObject:
   - component: {fileID: 286709065271900330}
   - component: {fileID: 286709065271900331}
   - component: {fileID: 286709065271900327}
-  - component: {fileID: 1637688672793420212}
   m_Layer: 0
   m_Name: PlayerCharHead
   m_TagString: Untagged
@@ -257,22 +256,6 @@ MonoBehaviour:
   notAble: 0
   sensitivity: 6.01
   yRotationLimit: 88
---- !u!54 &1637688672793420212
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 286709065271900328}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 1
 --- !u!1 &286709066312038814
 GameObject:
   m_ObjectHideFlags: 0
