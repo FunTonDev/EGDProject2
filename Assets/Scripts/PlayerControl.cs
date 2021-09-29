@@ -43,6 +43,17 @@ public class PlayerControl : MonoBehaviour
             stagie.GetComponent<StageManager>().interactText.text = inter.GetComponent<Interactable>().useText;
             stagie.GetComponent<StageManager>().interacting.SetActive(true);
         }
+        else if (other.gameObject.tag == "Transition")
+        {
+            if (stagie.GetComponent<StageManager>().stageNum == 1 && stagie.GetComponent<StageManager>().gotLunch)
+            {
+                SceneManager.LoadScene("Street");
+            }
+            else if (stagie.GetComponent<StageManager>().stageNum == 2)
+            {
+                SceneManager.LoadScene("Street");
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -94,11 +105,11 @@ public class PlayerControl : MonoBehaviour
             speedInput = 0f;
             if (Input.GetAxis("Vertical") > 0)
             {
-                speedInput = Input.GetAxis("Vertical") * fowardAccel * 10f * 20;
+                speedInput = Input.GetAxis("Vertical") * fowardAccel * 10f * parentBod.transform.localScale.x;
             }
             else if (Input.GetAxis("Vertical") < 0)
             {
-                speedInput = Input.GetAxis("Vertical") * reverseAccel * 10f * 20;
+                speedInput = Input.GetAxis("Vertical") * reverseAccel * 10f * parentBod.transform.localScale.x;
             }
 
             turnInput = Input.GetAxis("Horizontal");
