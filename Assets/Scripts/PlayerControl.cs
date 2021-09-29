@@ -219,7 +219,7 @@ public class PlayerControl : MonoBehaviour
             if (carMode && carBody.velocity.y == 0 && stagie.GetComponent<StageManager>().stageNum == 2)
             {
                 Debug.Log("Do the jump");
-                carBody.AddForce(transform.up * 2200, ForceMode.Impulse);
+                carBody.AddForce(transform.up * 2800, ForceMode.Impulse);
             }
             //In house, do ability (Bat)
             else if (stagie.GetComponent<StageManager>().stageNum == 0)
@@ -249,7 +249,6 @@ public class PlayerControl : MonoBehaviour
     {
         if (carBody.velocity.y == 0)
         {
-            carBody.drag = 5;
             if (Mathf.Abs(speedInput) > 0 && carMode)
             {
                 carBody.AddForce(transform.forward * speedInput);
@@ -257,7 +256,6 @@ public class PlayerControl : MonoBehaviour
         }
         else
         {
-            carBody.drag = 0.1f;
             carBody.AddForce(transform.up * -gravityForce);
         }
     }
