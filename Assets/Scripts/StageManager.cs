@@ -58,7 +58,6 @@ public class StageManager : MonoBehaviour
         tasks.Add("Make your way through traffic");
 
         actions = new List<string>();
-        actions.Add("Flip");
         actions.Add("Bat");
         actions.Add("Push");
         actions.Add("Jump");
