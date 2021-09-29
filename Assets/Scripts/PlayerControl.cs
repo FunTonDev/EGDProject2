@@ -30,8 +30,6 @@ public class PlayerControl : MonoBehaviour
     public GameObject headobj;
     //Rigidbody for the car to affect
     public Rigidbody carBody;
-    //Parent object
-    public GameObject parentBod;
 
     //Car movement variables
     public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 10f;
@@ -81,13 +79,12 @@ public class PlayerControl : MonoBehaviour
         serenity_filter.enabled = true;
         chaos_filter.enabled = false;
         headrb = headobj.GetComponent<Rigidbody>();
-        parentBod = gameObject.transform.parent.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
-        head.transform.position = new Vector3(transform.position.x, transform.position.y + 1.68f * parentBod.transform.localScale.x, transform.position.z);
+        head.transform.position = new Vector3(transform.position.x, transform.position.y + 1.68f * 20, transform.position.z);
 
         //If not in the car, use normal movement
         if (!carMode)
@@ -95,7 +92,7 @@ public class PlayerControl : MonoBehaviour
             head.GetComponent<FirstPersonCamera>().notAble = false;
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-            playerDirection = new Vector3(horizontal, 0, vertical) * parentBod.transform.localScale.x;
+            playerDirection = new Vector3(horizontal, 0, vertical) * 20;
             if (!carMode)
                 playerDirection = Camera.main.transform.TransformDirection(playerDirection);
 
