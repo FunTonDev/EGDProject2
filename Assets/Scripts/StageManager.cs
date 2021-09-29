@@ -52,9 +52,8 @@ public class StageManager : MonoBehaviour
         tasks = new List<string>();
         tasks.Add("Get out of Bed");
         tasks.Add("Find your keys");
-        tasks.Add("Get to the car");
-        tasks.Add("Drive to WackDonalds");
-        tasks.Add("Pay for your food at the window");
+        tasks.Add("Go out and get something to eat");
+        tasks.Add("Get your WackyMeal!!! at the window");
         tasks.Add("Head to work");
         tasks.Add("Make your way through traffic");
 
@@ -73,14 +72,14 @@ public class StageManager : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "DriveThru")
         {
             stageNum = 1;
-            taskNum = 4;
-            actionNum = 1;
+            taskNum = 3;
+            actionNum = 2;
         }
         else if (SceneManager.GetActiveScene().name == "Street")
         {
             stageNum = 2;
-            taskNum = 6;
-            actionNum = 2;
+            taskNum = 5;
+            actionNum = 3;
         }
     }
 

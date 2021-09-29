@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -145,8 +146,7 @@ public class PlayerControl : MonoBehaviour
             {
                 if (stagie.GetComponent<StageManager>().gotKeys)
                 {
-
-                    //Move to next scene
+                    SceneManager.LoadScene("DriveThru");
                 }
             }
         }
