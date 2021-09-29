@@ -25,6 +25,7 @@ public class FirstPersonCamera : MonoBehaviour
 
 	void Update()
 	{
+        //If not in car
         if (!notAble)
         {
             rotation.x += Input.GetAxis(xAxis) * sensitivity;

@@ -33,6 +33,7 @@ public class StageManager : MonoBehaviour
     //Player got lunch
     public bool gotLunch;
 
+    //Make interact button glow after interacting (and destroy item if it is not the door)
     public IEnumerator GlowButton(GameObject item)
     {
         interacting.GetComponent<Image>().color = new Color(0.0f, 1.0f, 0.0f);
@@ -40,12 +41,15 @@ public class StageManager : MonoBehaviour
         interacting.GetComponent<Image>().color = new Color(1.0f, 1.0f, 0.0f);
         yield return new WaitForSeconds(0.0f);
         interacting.SetActive(false);
-        Destroy(item);
+
+        if (item.GetComponent<Interactable>().itemName != "Door")
+            Destroy(item);
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        tasks = new List<string>();
         tasks.Add("Get out of Bed");
         tasks.Add("Find your keys");
         tasks.Add("Get to the car");
@@ -54,6 +58,8 @@ public class StageManager : MonoBehaviour
         tasks.Add("Head to work");
         tasks.Add("Make your way through traffic");
 
+        actions = new List<string>();
+        actions.Add("Flip");
         actions.Add("Bat");
         actions.Add("Push");
         actions.Add("Jump");

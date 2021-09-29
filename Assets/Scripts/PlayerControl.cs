@@ -27,10 +27,10 @@ public class PlayerControl : MonoBehaviour
     public Rigidbody bodyrb;
     //Refrence to head object
     public GameObject headobj;
-    //Refrence to camera
-
+    //Rigidbody for the car to affect
     public Rigidbody carBody;
 
+    //Car movement variables
     public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 10f;
     public float speedInput, turnInput;
 
@@ -72,30 +72,32 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        head.transform.position = new Vector3(transform.position.x, transform.position.y + 2, transform.position.z);
+        head.transform.position = new Vector3(transform.position.x, transform.position.y + 1.68f * 20, transform.position.z);
 
+        //If not in the car, use normal movement
         if (!carMode)
         {
             head.GetComponent<FirstPersonCamera>().notAble = false;
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-            playerDirection = new Vector3(horizontal, 0, vertical);
+            playerDirection = new Vector3(horizontal, 0, vertical) * 20;
             if (!carMode)
                 playerDirection = Camera.main.transform.TransformDirection(playerDirection);
 
             transform.Translate(new Vector3(playerDirection.x, 0, playerDirection.z) * (playerSpeed * Time.deltaTime));
         }
+        //Otherwise, use car-style movement
         else
         {
             head.GetComponent<FirstPersonCamera>().notAble = true;
             speedInput = 0f;
             if (Input.GetAxis("Vertical") > 0)
             {
-                speedInput = Input.GetAxis("Vertical") * fowardAccel * 10f;
+                speedInput = Input.GetAxis("Vertical") * fowardAccel * 10f * 20;
             }
             else if (Input.GetAxis("Vertical") < 0)
             {
-                speedInput = Input.GetAxis("Vertical") * reverseAccel * 10f;
+                speedInput = Input.GetAxis("Vertical") * reverseAccel * 10f * 20;
             }
 
             turnInput = Input.GetAxis("Horizontal");
@@ -125,21 +127,19 @@ public class PlayerControl : MonoBehaviour
         //Interact with item
         if (Input.GetButtonDown("Fire1") && inter != null)
         {
-
+            //Have button glow after interaction
             stagie.GetComponent<StageManager>().StartCoroutine(stagie.GetComponent<StageManager>().GlowButton(inter));
+            //Pick up keys and move to the door and/or get more stuff
             if (inter.GetComponent<Interactable>().itemName == "Keys")
             {
                 stagie.GetComponent<StageManager>().gotKeys = true;
                 stagie.GetComponent<StageManager>().taskNum += 1;
-                Destroy(inter);
-                //Pick up keys and move to the door and/or get more stuff
             }
+            //Pick up bag from drive thru and move on
             else if (inter.GetComponent<Interactable>().itemName == "Bag")
             {
                 stagie.GetComponent<StageManager>().gotLunch = true;
                 stagie.GetComponent<StageManager>().taskNum += 1;
-                Destroy(inter);
-                //Pick up bag from drive thru and move on
             }
             else if (inter.GetComponent<Interactable>().itemName == "Door")
             {
