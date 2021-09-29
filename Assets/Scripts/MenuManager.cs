@@ -64,7 +64,7 @@ public class MenuManager : MonoBehaviour
                 SetActiveMenuPanel(MenuSection.Quit);
                 break;
             case 3:
-                SceneManager.LoadScene("House");
+                SceneManager.LoadScene("Transition1");
                 NextGuidePage();
                 break;
             case 4:
