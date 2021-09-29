@@ -36,6 +36,11 @@ public class PlayerControl : MonoBehaviour
     public GameObject bat;
     //Refrence to bat animator
     private Animator anim;
+    //Refrence to audio source
+    public AudioSource my_audio;
+    public AudioClip calm_music;
+    public AudioClip chaos_music;
+    public AudioSource highway_audio;
 
     //Car movement variables
     public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 500f;
@@ -53,11 +58,11 @@ public class PlayerControl : MonoBehaviour
         {
             if (stagie.GetComponent<StageManager>().stageNum == 1 && stagie.GetComponent<StageManager>().gotLunch)
             {
-                SceneManager.LoadScene("Street");
+                SceneManager.LoadScene("Transition3");
             }
             else if (stagie.GetComponent<StageManager>().stageNum == 2)
             {
-                SceneManager.LoadScene("Street");
+                SceneManager.LoadScene("Transition4");
             }
         }
     }
@@ -87,7 +92,9 @@ public class PlayerControl : MonoBehaviour
         headrb = headobj.GetComponent<Rigidbody>();
         parentBod = gameObject.transform.parent.gameObject;
         if (stagie.GetComponent<StageManager>().stageNum == 0)
+        {
             anim = bat.GetComponent<Animator>();
+        }
     }
 
     // Update is called once per frame
@@ -98,6 +105,17 @@ public class PlayerControl : MonoBehaviour
             carMode = true;
         }
         head.transform.position = new Vector3(transform.position.x, transform.position.y + 1.68f * parentBod.transform.localScale.x, transform.position.z);
+
+        if (stagie.GetComponent<StageManager>().chaos)
+        {
+            fowardAccel = 8f;
+            reverseAccel = 4f;
+        }
+        else
+        {
+            fowardAccel = 4f;
+            reverseAccel = 2f;
+        }
 
         //If not in the car, use normal movement
         if (!carMode)
@@ -143,6 +161,12 @@ public class PlayerControl : MonoBehaviour
                 {
                     bat.SetActive(true);
                 }
+                else if (stagie.GetComponent<StageManager>().stageNum == 2)
+                {
+                    highway_audio.Play();
+                }
+                my_audio.clip = chaos_music;
+                my_audio.Play();
             }
             else
             {
@@ -154,6 +178,12 @@ public class PlayerControl : MonoBehaviour
                 {
                     bat.SetActive(false);
                 }
+                else if (stagie.GetComponent<StageManager>().stageNum == 2)
+                {
+                    highway_audio.Stop();
+                }
+                my_audio.clip = calm_music;
+                my_audio.Play();
             }
         }
 
@@ -178,7 +208,7 @@ public class PlayerControl : MonoBehaviour
             {
                 if (stagie.GetComponent<StageManager>().gotKeys)
                 {
-                    SceneManager.LoadScene("DriveThru");
+                    SceneManager.LoadScene("Transition2");
                 }
             }
         }
@@ -189,7 +219,7 @@ public class PlayerControl : MonoBehaviour
             if (carMode && carBody.velocity.y == 0 && stagie.GetComponent<StageManager>().stageNum == 2)
             {
                 Debug.Log("Do the jump");
-                carBody.AddForce(transform.up * 500, ForceMode.Impulse);
+                carBody.AddForce(transform.up * 1000, ForceMode.Impulse);
             }
             //In house, do ability (Bat)
             else if (stagie.GetComponent<StageManager>().stageNum == 0)
@@ -201,7 +231,6 @@ public class PlayerControl : MonoBehaviour
         //add ui element that tells the player they can push the car
         if (stagie.GetComponent<StageManager>().stageNum == 1 && stagie.GetComponent<StageManager>().chaos && headrb.mass == 1f)
         {
-            Debug.Log("here");
             headrb.mass = 150f;
             bodyrb.mass = 150f;
         }
@@ -212,7 +241,6 @@ public class PlayerControl : MonoBehaviour
             for (int i = 0; i < 12; i++)
             {
                 StartCoroutine(FlipCoroutine());
-                Debug.Log("Here");
             }
         }
     }

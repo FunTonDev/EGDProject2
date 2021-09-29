@@ -17,4 +17,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Street.unity
     guid: e6660ee1461feef4385d131595e28685
+  - enabled: 1
+    path: Assets/Scenes/Transition1.unity
+    guid: 5dffd23501f0b2a46a883bd08cb6d01d
+  - enabled: 1
+    path: Assets/Scenes/Transition2.unity
+    guid: e97f5a27faea6e14d878bc352ced814c
+  - enabled: 1
+    path: Assets/Scenes/Transition3.unity
+    guid: 4f3096ae76bb3fb4db5926bd8ac56107
+  - enabled: 1
+    path: Assets/Scenes/Transition4.unity
+    guid: be4701d43c755524c8eeefcfd8633d58
   m_configObjects: {}
