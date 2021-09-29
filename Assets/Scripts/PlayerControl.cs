@@ -36,6 +36,10 @@ public class PlayerControl : MonoBehaviour
     public GameObject bat;
     //Refrence to bat animator
     private Animator anim;
+    //Refrence to audio source
+    public AudioSource my_audio;
+    public AudioClip calm_music;
+    public AudioClip chaos_music;
 
     //Car movement variables
     public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 500f;
@@ -143,6 +147,8 @@ public class PlayerControl : MonoBehaviour
                 {
                     bat.SetActive(true);
                 }
+                my_audio.clip = chaos_music;
+                my_audio.Play();
             }
             else
             {
@@ -154,6 +160,8 @@ public class PlayerControl : MonoBehaviour
                 {
                     bat.SetActive(false);
                 }
+                my_audio.clip = calm_music;
+                my_audio.Play();
             }
         }
 
@@ -201,7 +209,6 @@ public class PlayerControl : MonoBehaviour
         //add ui element that tells the player they can push the car
         if (stagie.GetComponent<StageManager>().stageNum == 1 && stagie.GetComponent<StageManager>().chaos && headrb.mass == 1f)
         {
-            Debug.Log("here");
             headrb.mass = 150f;
             bodyrb.mass = 150f;
         }
@@ -212,7 +219,6 @@ public class PlayerControl : MonoBehaviour
             for (int i = 0; i < 12; i++)
             {
                 StartCoroutine(FlipCoroutine());
-                Debug.Log("Here");
             }
         }
     }
