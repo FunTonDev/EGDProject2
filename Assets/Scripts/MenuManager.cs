@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum MenuSection { Main, Help, Quit }
 
@@ -63,6 +64,7 @@ public class MenuManager : MonoBehaviour
                 SetActiveMenuPanel(MenuSection.Quit);
                 break;
             case 3:
+                SceneManager.LoadScene("House");
                 NextGuidePage();
                 break;
             case 4:
