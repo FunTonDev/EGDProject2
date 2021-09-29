@@ -30,9 +30,15 @@ public class PlayerControl : MonoBehaviour
     public GameObject headobj;
     //Rigidbody for the car to affect
     public Rigidbody carBody;
+    //Parent object
+    public GameObject parentBod;
+    //Refrence to bat
+    public GameObject bat;
+    //Refrence to bat animator
+    private Animator anim;
 
     //Car movement variables
-    public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 10f;
+    public float fowardAccel = 8f, reverseAccel = 4f, maxSpeed = 30, turnStrength = 180, gravityForce = 100f;
     public float speedInput, turnInput;
 
     private void OnTriggerEnter(Collider other)
@@ -79,12 +85,18 @@ public class PlayerControl : MonoBehaviour
         serenity_filter.enabled = true;
         chaos_filter.enabled = false;
         headrb = headobj.GetComponent<Rigidbody>();
+        parentBod = gameObject.transform.parent.gameObject;
+        anim = bat.GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        head.transform.position = new Vector3(transform.position.x, transform.position.y + 1.68f * 20, transform.position.z);
+        if (stagie.GetComponent<StageManager>().stageNum == 2)
+        {
+            carMode = true;
+        }
+        head.transform.position = new Vector3(transform.position.x, transform.position.y + 1.68f * parentBod.transform.localScale.x, transform.position.z);
 
         //If not in the car, use normal movement
         if (!carMode)
@@ -92,7 +104,7 @@ public class PlayerControl : MonoBehaviour
             head.GetComponent<FirstPersonCamera>().notAble = false;
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-            playerDirection = new Vector3(horizontal, 0, vertical) * 20;
+            playerDirection = new Vector3(horizontal, 0, vertical) * parentBod.transform.localScale.x;
             if (!carMode)
                 playerDirection = Camera.main.transform.TransformDirection(playerDirection);
 
@@ -105,11 +117,11 @@ public class PlayerControl : MonoBehaviour
             speedInput = 0f;
             if (Input.GetAxis("Vertical") > 0)
             {
-                speedInput = Input.GetAxis("Vertical") * fowardAccel * 10f * parentBod.transform.localScale.x;
+                speedInput = Input.GetAxis("Vertical") * fowardAccel * 100f * parentBod.transform.localScale.x;
             }
             else if (Input.GetAxis("Vertical") < 0)
             {
-                speedInput = Input.GetAxis("Vertical") * reverseAccel * 10f * parentBod.transform.localScale.x;
+                speedInput = Input.GetAxis("Vertical") * reverseAccel * 100f * parentBod.transform.localScale.x;
             }
 
             turnInput = Input.GetAxis("Horizontal");
@@ -126,6 +138,10 @@ public class PlayerControl : MonoBehaviour
             {
                 chaos_filter.enabled = true;
                 serenity_filter.enabled = false;
+                if (stagie.GetComponent<StageManager>().stageNum == 0)
+                {
+                    bat.SetActive(true);
+                }
             }
             else
             {
@@ -133,6 +149,10 @@ public class PlayerControl : MonoBehaviour
                 chaos_filter.enabled = false;
                 headrb.mass = 1f;
                 bodyrb.mass = 1f;
+                if (stagie.GetComponent<StageManager>().stageNum == 0)
+                {
+                    bat.SetActive(false);
+                }
             }
         }
 
@@ -168,14 +188,13 @@ public class PlayerControl : MonoBehaviour
             if (carMode && carBody.velocity.y == 0 && stagie.GetComponent<StageManager>().stageNum == 2)
             {
                 Debug.Log("Do the jump");
-                carBody.AddForce(transform.up * 500);
+                carBody.AddForce(transform.up * 500, ForceMode.Impulse);
             }
             //In house, do ability (Bat)
             else if (stagie.GetComponent<StageManager>().stageNum == 0)
             {
-
+                anim.Play("Swing");
             }
-
         }
         //At drive thru, do ability (Push Cars)
         //add ui element that tells the player they can push the car
@@ -197,7 +216,7 @@ public class PlayerControl : MonoBehaviour
         }
     }
 
-        private void FixedUpdate()
+    private void FixedUpdate()
     {
         if (carBody.velocity.y == 0)
         {
